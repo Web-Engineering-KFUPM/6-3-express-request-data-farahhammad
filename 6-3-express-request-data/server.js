@@ -118,7 +118,22 @@ app.listen(3000, () => {
 });
 
 // Query params: /echo?name=Ali&age=22
+app.get("/echo", (req, res) => {
+    const { name, age } = req.query;
 
+    // check if missing
+    if (!name || !age) {
+        return res.status(400).json({ ok: false, error: "name & age required" });
+    }
+
+    // send success response
+    res.json({
+        ok: true,
+        name,
+        age,
+        msg: `Hello ${name}, you are ${age}`,
+    });
+});
 
 // Route params: /profile/First/Last
 
